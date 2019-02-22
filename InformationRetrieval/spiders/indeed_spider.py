@@ -29,7 +29,7 @@ class JobsSpider(scrapy.Spider):
         title_obj = response.css('div.jobsearch-DesktopStickyContainer h3::text').get()
         list_disc = response.css("div.jobsearch-JobComponent-description *::text").getall()
         company = response.css("div.icl-u-lg-mr--sm *::text").get()
-        location =response.css("span.jobsearch-JobMetadataHeader-iconLabel ::text").getall()
+        location = response.css("div.jobsearch-InlineCompanyRating.icl-u-xs-mt--xs.jobsearch-DesktopStickyContainer-companyrating ::text").getall()
         if title_obj:
             yield {
                 'title': title_obj,
