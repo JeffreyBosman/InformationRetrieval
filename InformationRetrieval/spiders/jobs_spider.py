@@ -6,7 +6,7 @@ class JobsSpider(scrapy.Spider):
     user_agent = 'University of Amsterdam - Information Retrieval Project  (persenal_email@gmail.com)' 
     httpcache_enabled = False 
     start_urls = [
-        'https://www.technojobs.co.uk/jobs-in/london',
+        'https://www.technojobs.co.uk/search.phtml/searchfield/location/radius25/salary0/sortby5',
 		]
 
     def parse(self, response):
@@ -29,12 +29,15 @@ class JobsSpider(scrapy.Spider):
         title_obj = response.css('div.job-listing-title::text').get()
         company = response.css("table.job-listing-table td::text")[0].get()
         location =response.css("table.job-listing-table td::text")[2].get()
-
+        salary =response.css("table.job-listing-table td::text")[3].get()
+        date_listed =response.css("table.job-listing-table td::text")[1].get()
         yield {
             'title': title_obj,
             'company': company,
             'description': list_disc,
             'location': location,
+            'salary': salary,
+            'date_listed': date_listed,
 			'URL': response.request.url,
         }
 

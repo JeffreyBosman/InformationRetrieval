@@ -24,13 +24,17 @@ class JobsSpider(scrapy.Spider):
     def parse_vacancie(self, response):
         list_disc = response.css("div.block.fix-text.job-description ::text").getall()
         title_obj = response.css("h1 ::text").get()
-        company = response.css("dd.grid-item.three-fifths.portable-one-whole.palm-one-half ::text").getall()
-        location = response.css("dd.grid-item.three-fifths.portable-one-whole.palm-one-half ::text").getall()
+        company =  response.css("div.cf.margin-bottom-5.job-detail-description__recruiter ::text").getall()
+        location = response.css("div.cf.margin-bottom-5.job-detail-description__location ::text").getall()
+        salary = response.css("div.cf.margin-bottom-5.job-detail-description__salary ::text").getall()
+        date_listed =  response.css("div.cf.margin-bottom-5.job-detail-description__posted-date ::text").getall()
 
         yield {
             'title': title_obj,
             'company': company,
             'description': list_disc,
             'location': location,
+            'salary': salary,
+            'date_listed': date_listed,
             'URL': response.request.url,
         }

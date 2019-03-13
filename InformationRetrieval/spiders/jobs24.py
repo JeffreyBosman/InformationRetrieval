@@ -25,11 +25,14 @@ class JobsSpider(scrapy.Spider):
         title_obj = response.css('h1[itemprop="title"] ::text').extract_first()
         company = response.css('div[itemprop="hiringOrganization"] ::text').getall()
         location = response.css('h2[itemprop="addressLocality addressRegion"] ::text').extract_first()
-
+        salary = response.css('span[itemprop="baseSalary"] ::text').extract_first()
+        date_listed = response.css('div.Value ::text').extract_first()
         yield {
             'title': title_obj,
             'company': company,
             'description': list_disc,
             'location': location,
+            'salary': salary,
+            'date_listed': date_listed,
             'URL': response.request.url,
         }

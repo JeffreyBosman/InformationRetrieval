@@ -30,12 +30,16 @@ class JobsSpider(scrapy.Spider):
         list_disc = response.css("div.jobsearch-JobComponent-description *::text").getall()
         company = response.css("div.icl-u-lg-mr--sm *::text").get()
         location = response.css("div.jobsearch-InlineCompanyRating.icl-u-xs-mt--xs.jobsearch-DesktopStickyContainer-companyrating ::text").getall()
+        date_listed = response.css("div.jobsearch-JobMetadataFooter ::text").getall()
+        salary = "Not available"
         if title_obj:
             yield {
                 'title': title_obj,
                 'company':company,
                 'location':location,
                 'description': list_disc,
+                'salary': salary,
+                'date_listed': date_listed,
                 'URL': response.request.url
             }
         else:
