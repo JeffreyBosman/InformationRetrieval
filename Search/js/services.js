@@ -415,20 +415,16 @@ Calaca.factory('calacaService', ['$q', 'esFactory', '$location', function($q, el
         // console.log(cities);
         console.log(distance);
         console.log("Latitude: " + latitude + " Longitude: " + longitude);
-        var selectedCities = [];
+        var selectedCities = "";
         for(var key in cities){
             // console.log("City: " + cities[key].City + " lat:" + cities[key].lat + " long: " + cities[key].long);
             var distanceToCity = getDistanceFromLatLonInKm(latitude, longitude, cities[key].lat, cities[key].long);
             if(distance >= distanceToCity){
-                selectedCities.push(cities[key].City);
+                selectedCities += " ";
+                selectedCities += cities[key].City;
             }
         }
-        console.log(selectedCities);
-        // if(distance == undefined || distance == ""){
-        //     locationFilter = [];
-        // }else{
-        //     locationFilter = [{ "term":  { "location": distance }}];
-        // }
+        // console.log(selectedCities);
 
         client.search({
                 "index": CALACA_CONFIGS.index_name,
@@ -437,13 +433,21 @@ Calaca.factory('calacaService', ['$q', 'esFactory', '$location', function($q, el
                     "size": CALACA_CONFIGS.size,
                     "from": offset,
                     "query": {
-                        "bool": { 
-                            "must": [
-                              { "match": { "description":   query }}
-                            ],
-                            "filter": [{ "term" : { "location" : "london"}}]
-                          }
-                    }
+                      "bool": {
+                          "must": [
+                              {
+                                  "match": {"description": query}
+                              },
+                              {
+                                  "bool": {
+                                      "should": [
+                                          {"match": {"location": selectedCities}}
+                                      ]
+                                  }
+                              }
+                          ]
+                      }
+                  }
                 }
         }).then(function(result) {
 
