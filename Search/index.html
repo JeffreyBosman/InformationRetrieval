@@ -40,7 +40,8 @@
       <a ng-href="{{result.URL}}"><h2>{{result.title}}</h2></a>
       <p>Location: {{result.location}}</p>
       <p>Company: {{result.company}}</p>
-
+      <p>Salary: {{result.salary}}</p>
+      <p>Date listed: {{result.date_listed}}</p>
       <!-- <p><b>Description:</b><br/>{{result.description}}</p> -->
       <p><b>Description:</b><br/>{{result.description.substring(0,255)}}...</p>
     </article>
@@ -49,7 +50,7 @@
     <button ng-click='search(-1)' ng-show='paginationEnabled() && offset !== 0' class='pager'>Previous</button><button ng-click='search(1)' ng-show='paginationEnabled()' class='pager'>Next</button>
   </section>
 </main>
-<img id="flamingoimg" src="flamingo.jpg"/>
+<!-- <img id="flamingoimg" src="flamingo.jpg"/> -->
 
 <!-- Load resources -->
 <script src='bower_components/angular-animate/angular-animate.min.js' type='text/javascript'></script>
