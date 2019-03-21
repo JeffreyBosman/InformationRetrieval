@@ -37,13 +37,14 @@
   <section class='results'>
     <p class='no-results' ng-show='!results.length && !loading'>No Results</p>
     <article class='result' ng-repeat='result in results track by $id(result)'>
-      <a ng-href="{{result.URL}}"><h2>{{result.title}}</h2></a>
-      <p>Location: {{result.location}}</p>
-      <p>Company: {{result.company}}</p>
-      <p>Salary: {{result.salary}}</p>
-      <p>Date listed: {{result.date_listed}}</p>
+      <a ng-href="{{result.URL}}"><h2 style="font-weight:bold">{{result.title}}</h2></a>
+      <a ng-href="{{result.URL}}"><p><span style="font-weight:bold">URL:</span> {{result.URL}}</p></a>
+      <p><span style="font-weight:bold">Location:</span> {{result.location}}</p>
+      <p><span style="font-weight:bold">Company:</span> {{result.company}}</p>
+      <p><span style="font-weight:bold">Salary:</span> {{result.salary}}</p>
+      <p><span style="font-weight:bold">Date listed:</span> {{result.date_listed}}</p>
       <!-- <p><b>Description:</b><br/>{{result.description}}</p> -->
-      <p><b>Description:</b><br/>{{result.description.substring(0,255)}}...</p>
+      <p><span style="font-weight:bold">Description:</span><br/>{{result.description.substring(0,255)}}...</p>
     </article>
   </section>
   <section class='pagination-controls'>
