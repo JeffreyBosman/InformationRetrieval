@@ -13,7 +13,7 @@
  * On change in search box, search() will be called, and results are bind to scope as results[]
  *
 */
-Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', function(results, $scope, $location){
+Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', '$sce', function(results, $scope, $location, $sce){
 
         //Init empty array
         $scope.results = [];
@@ -47,15 +47,23 @@ Calaca.controller('calacaCtrl', ['calacaService', '$scope', '$location', functio
             $scope.paginationLowerBound = $scope.offset + 1;
             $scope.paginationUpperBound = ($scope.offset == 0) ? maxResultsSize : $scope.offset + maxResultsSize;
             $scope.loadResults(m);
+			console.log('hoi');
         };
 
         //Load search results into array
         $scope.loadResults = function(m) {
             results.search($scope.query, $scope.location, m, $scope.offset).then(function(a) {
 
+				console.log(a);
                 //Load results
                 var i = 0;
                 for(;i < a.hits.length; i++){
+					if(typeof a.hits[i].description !== 'undefined'){
+						a.hits[i].description = a.hits[i].description.replace($scope.query, '<span style="color: red;">' + $scope.query + '</span>').substring(0,500);
+						a.hits[i].html = $sce.trustAsHtml(a.hits[i].description);
+						//console.log(a.hits[i]);
+					}
+			
                     $scope.results.push(a.hits[i]);
                 }
 

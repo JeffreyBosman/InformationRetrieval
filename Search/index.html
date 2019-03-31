@@ -44,7 +44,7 @@
       <p><span style="font-weight:bold">Salary:</span> {{result.salary}}</p>
       <p><span style="font-weight:bold">Date listed:</span> {{result.date_listed}}</p>
       <!-- <p><b>Description:</b><br/>{{result.description}}</p> -->
-      <p><span style="font-weight:bold">Description:</span><br/>{{result.description.substring(0,500)}}...</p>
+      <p><span style="font-weight:bold">Description:</span><br/><span ng-bind-html="result.html"></span>...</p>
     </article>
   </section>
   <section class='pagination-controls'>
